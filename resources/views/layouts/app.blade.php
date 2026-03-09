@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
+        <title>{{ config('app.name', 'Laravel') }}</title>
+
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&display=swap" rel="stylesheet" />
+
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    </head>
+    @php
+        $themeClass = auth()->check()
+            ? (auth()->user()->isAdmin() ? 'theme-admin' : 'theme-student')
+            : 'theme-guest';
+    @endphp
+    <body class="app-body {{ $themeClass }}">
+        <div class="page-shell">
+            @include('layouts.navigation')
+
+            @isset($header)
+                <header class="page-header">
+                    <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+                        {{ $header }}
+                    </div>
+                </header>
+            @endisset
+
+            @if (session('status') || session('error'))
+                <div class="mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:px-8">
+                    @if (session('status'))
+                        <div class="flash-banner flash-banner-success">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    @if (session('error'))
+                        <div class="flash-banner flash-banner-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+                </div>
+            @endif
+
+            <main>
+                {{ $slot }}
+            </main>
+        </div>
+    </body>
+</html>
