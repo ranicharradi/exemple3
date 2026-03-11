@@ -19,7 +19,7 @@ services:
           property: url
       - key: DB_CONNECTION
         value: pgsql
-      - key: DATABASE_URL
+      - key: DB_URL
         fromDatabase:
           name: exemple3-db
           property: connectionString
@@ -39,3 +39,4 @@ databases:
     plan: free
     databaseName: codex_learning
     user: codex_user
+
