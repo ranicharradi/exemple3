@@ -69,7 +69,12 @@
                     </article>
                 @empty
                     <div class="rounded-[2rem] border border-dashed border-slate-300 bg-white/70 p-10 text-sm text-slate-500 md:col-span-2 xl:col-span-3">
-                        No courses are available yet.
+                        <p class="text-sm font-semibold text-slate-700">No courses are available yet.</p>
+                        <p class="mt-3 text-xs text-slate-500">
+                            First-time setup tip: if this is a fresh deploy and the catalog is empty, run
+                            <code class="rounded bg-slate-100 px-2 py-1 font-mono text-[0.7rem]">php artisan db:seed --force</code>
+                            once to load the demo data.
+                        </p>
                     </div>
                 @endforelse
             </section>
@@ -80,3 +85,4 @@
         </div>
     </div>
 </x-app-layout>
+
